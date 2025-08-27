@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <title>{% block title %}Agenda de Contatos{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 24px; color: #333; }
+    header { margin-bottom: 24px; border-bottom: 1px solid #ccc; padding-bottom: 12px; }
+    .flash { padding: 10px 15px; margin: 10px 0; border-radius: 6px; font-weight: 500;}
+    .flash.success { background: #e7f8ec; border: 1px solid #a6e3b3; color: #2d6b3f; }
+    .flash.error   { background: #fdecec; border: 1px solid #efb0b0; color: #a13232; }
+    input, button, a { font-size: 1rem; padding: 8px 12px; border-radius: 6px; border: 1px solid #ccc; }
+    button, a.button { cursor: pointer; background: #007bff; color: white; border-color: #007bff; text-decoration: none;}
+    table { border-collapse: collapse; width: 100%; margin-top: 16px; }
+    th, td { border: 1px solid #ddd; padding: 10px; }
+    th { background: #f2f2f2; text-align: left; }
+    form.inline { display: inline; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="{{ url_for('users_new_form') }}" class="button">Novo Contato</a> |
+    <a href="{{ url_for('users_page') }}">Lista de Contatos</a>
+  </header>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
